@@ -1,5 +1,5 @@
 """
-WSGI config for django_services_poc project.
+WSGI config for services_poc project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_services_poc.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'services_poc.settings')
 
 application = get_wsgi_application()
