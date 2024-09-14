@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils.timezone import now
 
-from services.models.models import Encounters, Patient
+from services.models.encounter_model import Encounters, Patient
 
 
 def encounter(request):
