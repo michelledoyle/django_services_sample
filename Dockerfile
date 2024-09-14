@@ -14,7 +14,7 @@ WORKDIR $APP_HOME
 COPY . ./
 
 # Copy the credentials file to the container
-COPY ~/.config/gcloud/application_default_credentials.json /app/credentials/application_default_credentials.json
+COPY /Users/michelle/.config/gcloud/application_default_credentials.json /app/credentials/application_default_credentials.json
 
 RUN pip install --no-cache-dir -r requirements.txt
 
