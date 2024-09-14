@@ -6,11 +6,11 @@ from services.models.models import Encounters, Patient
 
 def encounter(request):
     encounter_model = Encounters(
-        encounter_id=1291100,
-        person_id=1209933,
-        first_name="Dalian",
-        last_name="Django",
-        zip_code="100013",
+        encounter_id=13334440,
+        person_id=166778933,
+        first_name="Fushun",
+        last_name="Django in CloudRun",
+        zip_code="300013",
         sp_load_time_stamp=now()
     )
     encounter_model.save()
