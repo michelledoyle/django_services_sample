@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED True
 
 ENV APP_HOME /app
 
-ENV PORT 5000
+ENV PORT 8080
 
 # This will point to the credentials in the container
 ENV GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/application_default_credentials.json
@@ -15,7 +15,6 @@ COPY . ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV PORT 8080
 EXPOSE 8080
 CMD ["python", "manage.py", "runserver", "0.0.0.0:$PORT"]
 
