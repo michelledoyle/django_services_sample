@@ -23,6 +23,13 @@ def main():
 
 
 if __name__ == '__main__':
+    # Publisher Service for Cloud Spanner
+    PROJECT_ID = "asc-ahnat-rthe-sandbox-poc"
+    INSTANCE_ID = "the-poc1"
+    DATABASE_ID = "rthe-poc1"
+    PUBSUB_TOPIC_ID = "poc-topic-outbound"
+    TABLE_NAME = "Encounters"
+
     # Listener Service for Cloud Spanner
     listener = PubSubToSpannerListenerService(
         project_id="asc-ahnat-rthe-sandbox-poc",
@@ -36,16 +43,9 @@ if __name__ == '__main__':
     # Start listening for messages
     listener.listen_for_messages()
 
-    # Publisher Service for Cloud Spanner
-    PROJECT_ID = "asc-ahnat-rthe-sandbox-poc"
-    INSTANCE_ID = "the-poc1"
-    DATABASE_ID = "rthe-poc1"
-    PUBSUB_TOPIC_ID = "poc-topic-outbound"
-    TABLE_NAME = "Encounter"
-
     # Create an instance of the SpannerPubSubService
     publish_service = SpannerToPubSubPublisherService(PROJECT_ID, INSTANCE_ID, DATABASE_ID, PUBSUB_TOPIC_ID, TABLE_NAME)
-
+    print(f"``````topic is this````````` {PUBSUB_TOPIC_ID}")
     # Execute the service
     publish_service.execute()
 

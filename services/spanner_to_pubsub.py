@@ -9,6 +9,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'services_project.settings')
 # Initialize Django
 django.setup()
 
+
 class SpannerToPubSubPublisherService:
     def __init__(self, project_id, instance_id, database_id, pubsub_topic_id, table_name):
         # Initialize Cloud Spanner client
@@ -25,7 +26,7 @@ class SpannerToPubSubPublisherService:
     def read_encounter_data_from_spanner(self):
         """Read encounter data from Cloud Spanner"""
         with self.database.snapshot() as snapshot:
-            query = f"SELECT encounter_id, person_id, first_name, last_name, zip_code, sp_load_time_stamp FROM {self.table_name} LIMIT 1;"
+            query = f"SELECT encounter_id, person_id, first_name, last_name, zip_code FROM {self.table_name} LIMIT 1;"
             results = snapshot.execute_sql(query)
 
             encounter_list = []
@@ -35,10 +36,11 @@ class SpannerToPubSubPublisherService:
                     "person_id": row[1],
                     "first_name": row[2],
                     "last_name": row[3],
-                    "zip_code": row[4],
-                    "sp_load_time_stamp": row[5],
+                    "zip_code": row[4]
                 }
                 encounter_list.append(encounter_data)
+
+            print(f"``````encounter_data is this````````` {encounter_data}")
 
             return encounter_list
 
@@ -57,7 +59,6 @@ class SpannerToPubSubPublisherService:
         # Step 2: Publish the data to a Pub/Sub topic
         self.publish_to_pubsub(encounters)
         print(f"Published {len(encounters)} messages to Pub/Sub.")
-
 
 # # If this file is run as the main program
 # if __name__ == "__main__":
