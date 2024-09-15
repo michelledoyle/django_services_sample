@@ -30,18 +30,18 @@ if __name__ == '__main__':
     PUBSUB_TOPIC_ID = "poc-topic-outbound"
     TABLE_NAME = "Encounters"
 
-    # Listener Service for Cloud Spanner
-    listener = PubSubToSpannerListenerService(
-        project_id="asc-ahnat-rthe-sandbox-poc",
-        subscription_id="poc-topic-inbound-sub",
-        instance_id="the-poc1",
-        database_id="rthe-poc1",
-        table_name="Encounter",
-        timeout=3600.0
-    )
-
-    # Start listening for messages
-    listener.listen_for_messages()
+    # # Listener Service for Cloud Spanner
+    # listener = PubSubToSpannerListenerService(
+    #     project_id=PROJECT_ID,
+    #     subscription_id="poc-topic-inbound-sub",
+    #     instance_id=INSTANCE_ID,
+    #     database_id=DATABASE_ID,
+    #     table_name=TABLE_NAME,
+    #     timeout=3600.0
+    # )
+    #
+    # # Start listening for messages
+    # listener.listen_for_messages()
 
     # Create an instance of the SpannerPubSubService
     publish_service = SpannerToPubSubPublisherService(PROJECT_ID, INSTANCE_ID, DATABASE_ID, PUBSUB_TOPIC_ID, TABLE_NAME)
