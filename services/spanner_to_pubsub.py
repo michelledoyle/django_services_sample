@@ -25,17 +25,18 @@ class SpannerToPubSubPublisherService:
     def read_encounter_data_from_spanner(self):
         """Read encounter data from Cloud Spanner"""
         with self.database.snapshot() as snapshot:
-            query = f"SELECT EncounterId, PersonId, FirstName, LastName, FullName FROM {self.table_name} LIMIT 1;"
+            query = f"SELECT encounter_id, person_id, first_name, last_name, zip_code, sp_load_time_stamp FROM {self.table_name} LIMIT 1;"
             results = snapshot.execute_sql(query)
 
             encounter_list = []
             for row in results:
                 encounter_data = {
-                    "EncounterId": row[0],
-                    "PersonId": row[1],
-                    "FirstName": row[2],
-                    "LastName": row[3],
-                    "FullName": row[4]
+                    "encounter_id": row[0],
+                    "person_id": row[1],
+                    "first_name": row[2],
+                    "last_name": row[3],
+                    "zip_code": row[4],
+                    "sp_load_time_stamp": row[5],
                 }
                 encounter_list.append(encounter_data)
 
