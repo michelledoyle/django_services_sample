@@ -1,7 +1,13 @@
+import os
+
 from google.cloud import spanner
 from google.cloud import pubsub_v1
 import json
+import django
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'services_project.settings')
+# Initialize Django
+django.setup()
 
 class SpannerToPubSubPublisherService:
     def __init__(self, project_id, instance_id, database_id, pubsub_topic_id, table_name):

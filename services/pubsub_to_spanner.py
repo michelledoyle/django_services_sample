@@ -5,6 +5,11 @@ from django.utils.timezone import now
 from google.cloud import pubsub_v1
 from google.cloud import spanner
 from concurrent.futures import TimeoutError
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'services_project.settings')
+# Initialize Django
+django.setup()
 from services.models.encounter_model import Encounters
 
 
@@ -57,11 +62,11 @@ class PubSubToSpannerListenerService:
         message_data = json.loads(message.data.decode('utf-8'))
 
         # Extract the necessary fields from the message (assuming the Pub/Sub message contains these fields)
-        encounter_id = message_data.get('EncounterId')
-        person_id = message_data.get('PersonId')
-        first_name = message_data.get('FirstName')
-        last_name = message_data.get('LastName')
-        zip_code = message_data.get('ZipCode')
+        encounter_id = message_data.get('encounter_id')
+        person_id = message_data.get('person_id')
+        first_name = message_data.get('first_name')
+        last_name = message_data.get('last_name')
+        zip_code = message_data.get('zip_code')
 
         # Insert the data into the Cloud Spanner Encounter table
         # self.insert_into_spanner(encounter_id, person_id, first_name, last_name)
@@ -81,17 +86,16 @@ class PubSubToSpannerListenerService:
             streaming_pull_future.result()
             print("Stopped listening for messages due to timeout.")
 
-
 # if __name__ == "__main__":
-    # # Instantiate the class with configuration parameters
-    # listener = SpannerPubSubListener(
-    #     project_id="asc-ahnat-rthe-sandbox-poc",
-    #     subscription_id="poc-topic-inbound-sub",
-    #     instance_id="the-poc1",
-    #     database_id="rthe-poc1",
-    #     table_name="Encounter",
-    #     timeout=3600.0
-    # )
-    #
-    # # Start listening for messages
-    # listener.listen_for_messages()
+# # Instantiate the class with configuration parameters
+# listener = SpannerPubSubListener(
+#     project_id="asc-ahnat-rthe-sandbox-poc",
+#     subscription_id="poc-topic-inbound-sub",
+#     instance_id="the-poc1",
+#     database_id="rthe-poc1",
+#     table_name="Encounter",
+#     timeout=3600.0
+# )
+#
+# # Start listening for messages
+# listener.listen_for_messages()
